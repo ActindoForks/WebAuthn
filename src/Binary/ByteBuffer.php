@@ -113,14 +113,14 @@ class ByteBuffer implements \JsonSerializable, \Serializable {
         if ($offset < 0 || ($offset + 2) > $this->_length) {
             throw new WebAuthnException('ByteBuffer: Invalid offset', WebAuthnException::BYTEBUFFER);
         }
-        return unpack('n', $this->_data, $offset)[1];
+        return unpack('n', substr($this->_data,$offset))[1];
     }
 
     public function getUint32Val($offset) {
         if ($offset < 0 || ($offset + 4) > $this->_length) {
             throw new WebAuthnException('ByteBuffer: Invalid offset', WebAuthnException::BYTEBUFFER);
         }
-        $val = unpack('N', $this->_data, $offset)[1];
+        $val = unpack('N', substr($this->_data,$offset), $offset)[1];
 
         // Signed integer overflow causes signed negative numbers
         if ($val < 0) {
@@ -136,7 +136,7 @@ class ByteBuffer implements \JsonSerializable, \Serializable {
         if ($offset < 0 || ($offset + 8) > $this->_length) {
             throw new WebAuthnException('ByteBuffer: Invalid offset', WebAuthnException::BYTEBUFFER);
         }
-        $val = unpack('J', $this->_data, $offset)[1];
+        $val = unpack('J', substr($this->_data,$offset))[1];
 
         // Signed integer overflow causes signed negative numbers
         if ($val < 0) {
@@ -168,14 +168,14 @@ class ByteBuffer implements \JsonSerializable, \Serializable {
         if ($offset < 0 || ($offset + 4) > $this->_length) {
             throw new WebAuthnException('ByteBuffer: Invalid offset', WebAuthnException::BYTEBUFFER);
         }
-        return unpack('G', $this->_data, $offset)[1];
+        return unpack('G', substr($this->_data,$offset))[1];
     }
 
     public function getDoubleVal($offset) {
         if ($offset < 0 || ($offset + 8) > $this->_length) {
             throw new WebAuthnException('ByteBuffer: Invalid offset', WebAuthnException::BYTEBUFFER);
         }
-        return unpack('E', $this->_data, $offset)[1];
+        return unpack('E', substr($this->_data,$offset))[1];
     }
 
     /**
